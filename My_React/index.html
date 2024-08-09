@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
+<!-- react element 생성 -->
 <body>
-    <span>Total clicks: 0</span>
-    <button id="btn">Click me</button>
+    <div id="root"></div>
 </body>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 <script>
-    let count = 0;
-    const button = document.getElementById("btn");
-    const span = document.querySelector("span");
-    function handleClick(){
-        count = count + 1;
-        span.innerText = `Total clicks: ${count}`;
-        console.log("i have been clicked")
-    }
-    button.addEventListener("click", handleClick);
-
+    const root = document.getElementById("root");
+    const span = React.createElement(
+        "span",
+        {id:"test-span", style:{color:"red"}},
+        "Hello,I'm a span"
+    );
+    ReactDOM.render(span,root);
 </script>
 </html>
