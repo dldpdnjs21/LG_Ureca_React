@@ -2,7 +2,6 @@ import React from "react";
 import Book from "./Book";
 
 //Library.jsx
-
 function Library(){
     return(
         <div>
