@@ -1,41 +1,46 @@
-import React, { useState } from "react";
+// MyMemo.jsx
 
-function MyMemo(props) {
-    const [memo, setMemo] = useState("");
-    const [memoList, setMemoList] = useState([]);
+import { useState } from "react";
 
-    const handleInputChange = (event) => {
-        setMemo(event.target.value);
-    };
+export default function MyMemo(props){
 
-    const handleAddMemo = () => {
-        if (memo.trim()) {
-            setMemoList([...memoList, memo]);
-            setMemo("");
-        }
-    };
+   const [memoContent, setMemoContent]=useState("");   //<input type=text>에 입력된 값 저장
+   const [memoContents, setMemoContents]=useState([]); 
 
-    return (
-        <div>
-            <h1>마이 메모장</h1>
-            <h3>메모폼</h3>
+   function myCallback(event){//<input>에서 입력된 내용이 변경시 호출
+    //   setMemoContent('abc');
+      setMemoContent(event.target.value);
+   }
 
-            <input 
-                value={memo}
-                onChange={handleInputChange}
-                placeholder="메모를 입력하세요."
-            />
+   function myClickCallback(){
+       //1. <input type=text>의 값을 배열에 입력!!
+       // ==> state변수 memoContent에 저장되어 있음
+       setMemoContents([...memoContents, memoContent] )  //배열값 변경(입력)
 
-            <button onClick={handleAddMemo}>메모등록</button>
+       //2. <input type=text>지우기 효과
+       setMemoContent('');//입력된 메모텍스트를 삭제
+   }
 
-            <h3>메모목록</h3>
+   return (
+      <div>
+          <h1>마이 메모장</h1>
+          <div>
+            <h2>메모 폼</h2>
+            <input type="text" onChange={myCallback} value={memoContent}/>
+            <button onClick={myClickCallback}>메모등록</button>
+          </div>
+          <hr />
+          <div>
+            <h2>메모 목록</h2>         
             <ul>
-                {memoList.map((item, index) => (
-                    <li key={index}>{item}</li>
-                ))}
-            </ul>
-        </div>
-    );
+                {/* <li>마라탕</li>
+                <li>젤리</li>
+                <li>탕후루</li> */}
+                {memoContents.map(  (value) =>   <li>{value}</li>   )}
+            </ul>   
+          </div>
+      </div>
+   );
 }
 
-export default MyMemo;
+// export default MyMemo;
