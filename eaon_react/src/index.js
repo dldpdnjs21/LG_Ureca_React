@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MyMemo from './My_React/MyMemo';
-import Timer from './My_React/MyTimer';
+import MyTimer from './My_React/MyTimer';
+import MyNum from './My_React/MyNum';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <MyMemo />
+    {/* <MyMemo /> */}
     {/* <MyTimer /> */}
+    <MyNum />
   </React.StrictMode>
 );
 
