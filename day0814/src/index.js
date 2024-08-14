@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MyNum from './MyFile/MyNum';
+import MyNum2 from './MyFile/MyNum2';
 import LandingPage from './MyFile/LandingPage';
+import AttendanceBook from './MyFile/AttendanceBook';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
     {/* <MyNum /> */}
-    <LandingPage />
+    <MyNum2 />
+    {/* <LandingPage /> */}
+    {/* <AttendanceBook /> */}
   </React.StrictMode>
 );
 
