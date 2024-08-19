@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import MyMemo from './My_React/MyMemo';
 import MyTimer from './My_React/MyTimer';
 import MyNum from './My_React/MyNum';
+import Guess from './Compound/Guess';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,7 +15,8 @@ root.render(
     {/* <App /> */}
     {/* <MyMemo /> */}
     {/* <MyTimer /> */}
-    <MyNum />
+    {/* <MyNum /> */}
+    <Guess />
   </React.StrictMode>
 );
 
