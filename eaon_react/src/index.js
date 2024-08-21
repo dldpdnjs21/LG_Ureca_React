@@ -7,6 +7,7 @@ import MyMemo from './My_React/MyMemo';
 import MyTimer from './My_React/MyTimer';
 import MyNum from './My_React/MyNum';
 import Guess from './Compound/Guess';
+import MyCalc from './My_React/MyCalc';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +17,8 @@ root.render(
     {/* <MyMemo /> */}
     {/* <MyTimer /> */}
     {/* <MyNum /> */}
-    <Guess />
+    {/* <Guess /> */}
+    <MyCalc />
   </React.StrictMode>
 );
 
