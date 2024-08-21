@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GawibawiboGame from './myFile/GawibawiboGame';
+import CssExam01 from './csstest/CssExam01';
+import CssExam02 from './csstest/CssExam02';
+import ButtonApp from './csstest/ButtonApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    {/* <GawibawiboGame /> */}
+    {/* <CssExam01 /> */}
+    {/* <CssExam02 /> */}
+    <ButtonApp />
   </React.StrictMode>
 );
 
