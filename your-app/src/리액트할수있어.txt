@@ -1,0 +1,122 @@
+1. 리액트프로젝트 your-app 만들수 있어?
+npx create-react-app your-app
+
+2. 컴포넌트 만들수 있어?
+=> 컴포넌트를 왜 써?
+=> 재사용을 위하여
+
+3. 브라우저 화면에 '안녕' 찍을 수 있어?
+        <div>
+            안녕
+        </div>
+
+4. 버튼 만들 수 있어?
+=> 이벤트의 기본/시작
+<button>버튼</button>
+
+5. 버튼을 눌렀을때 안녕 옆에 숫자를 출력 할 수 있어?
+   function handleClick(){
+      alert("클릭!!");
+   }
+
+<button onclick="handleClick()">버튼</button>
+=> Warning: Invalid event handler property `onclick`. 
+Did you mean `onClick`?
+
+<button onClick="handleClick()">버튼</button>
+=>Warning: Expected `onClick` listener to be a function, 
+instead got a value of `string` type.
+
+<button onClick={handleClick}>버튼</button>
+=> OK
+
+
+6. 버튼을 누를때마다 안녕 옆에 숫자를 1증가하여 출력 할 수 있어?
+        su = su + 1;
+     console.log('su=',su);
+==> 콘솔은 변하지만 브라우저(컴포넌트)는 변경없음
+
+   const [su2,setSu2] = useState(0);
+   
+   function handleClick(){
+     setSu2(su2+1);
+   }
+=> 상태변수를 만들어야 변경된 값을 컴포넌트가 인식할 수 있음
+
+7. input text만들수 있어?
+<input type="text"  />
+
+8. input text에 입력된 값을 state변수에  전달할 수 있어
+   (또는 그 반대)
+   const handleText=(event)=>{
+    // event.target ==> 이벤트 소스(엘리먼트) 정보
+      setTxt(event.target.value);
+   }
+<input type="text" value={txt} onChange={handleText}/>
+
+9. 자식 컴포넌트만들수 있어? (2개)
+function ChildComponent1(){
+   return (<div>1번자식</div>); 
+}
+
+function ChildComponent2(){
+   return (<div>2번자식</div>); 
+}
+
+        <hr color="red" />
+        <ChildComponent1/>
+        <ChildComponent2/>
+
+
+10. 부모 컴포넌트의 su를 자식 컴포넌트에 출력할 수 있어?
+        <ChildComponent1  su={su2}/>
+        <ChildComponent2  yoonsu={su2}/>
+
+=> su와 yoonsu는 props!!
+
+function ChildComponent1(props){
+   const {su} = props;
+   return (<div>1번자식:부모의 번호({su})</div>); 
+}
+
+function ChildComponent2(props){
+   const {yoonsu} = props;
+   return (<div>2번자식:부모의 번호({yoonsu})</div>); 
+}
+
+
+11. 자식 컴포넌트의 버튼을 클릭했을때 부모의 su를 증가시킬 수 있어?
+   (자식 컴포넌트에 버튼 추가 후)
+
+<ChildComponent1  su={su2}     handleClick={handleClick}/>
+
+
+function ChildComponent1(props){
+   const {su, handleClick} = props;//부모로 부터의 전달 데이터!!
+   return (<div>1번자식:부모의 번호({su})
+               {/* <button onClick={()=>{간단한 내용}}>증가</button> */}
+               <button onClick={handleClick}>증가</button>
+          </div>); 
+}
+
+
+
+
+12. 자식1 컴포넌트에 증가 감소한 값이 부모에는 전달되지만 
+     자식2 컴포넌트에는 전달 안되게 할 수 있어?
+(부모는 여러자식의 합산된 값 출력)
+
+예)
+도서 대여/반환
+총도서 대여 수
+
+
+
+
+
+
+
+
+
+
+
