@@ -1,5 +1,7 @@
 // Header.jsx
+import { ROUTE } from 'Route';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -29,8 +31,12 @@ const NavLink = styled.a`
   }
 `;
 
+const Login= styled.div`
+    text-align  : right;
+`;
 
 const Header = () => {
+  const navigate =  useNavigate();
   return (
     <HeaderContainer>
       <Logo>MyApp</Logo>
@@ -39,6 +45,12 @@ const Header = () => {
         <NavLink href="#about">About</NavLink>
         <NavLink href="#information">Information</NavLink>
       </Navigation>
+      <Login>
+        
+        <button onClick={()=>navigate(ROUTE.LOGINFORM)}>로그인</button>
+        홍길동님 반갑습니다. <button>로그아웃</button>
+      
+      </Login>  
     </HeaderContainer>
   );
 };
