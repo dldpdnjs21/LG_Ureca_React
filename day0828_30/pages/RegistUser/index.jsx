@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { saveUsersToStorage } from "../../utils/saveUserToStorage";
+import { getUsersFromStorage } from "../../utils/getUsersFromStorage";
 import Button from "../../components/Button";
 import NavigateButton from "../../components/NavigateButton";
 import { ROUTE } from "Route";
@@ -14,13 +16,18 @@ import {
 } from "styles";
 import axios from "axios";
 
-function RegistBook() {
+function RegistUser() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isbn, setIsbn] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
+  
+  const handleIsbnChange = (e) => {
+    setIsbn(e.target.value);
+  };
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -34,19 +41,21 @@ function RegistBook() {
     setDesc(e.target.value);
   };
   useEffect(() => {
-    if (title !== "" && author !== "" && price !== "" && desc !== "") {
+    if (isbn !== "" && title !== "" && author !== "" && price !== ""&& desc !== "") {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [title, author, price, desc]);
-  const registeBook = () => {
+  }, [isbn, title, author, price, desc]);
+
+
+  const registBook = () => {
     if (buttonDisabled) {
       return;
     }
 
     // axios.post("요청URL",전달데이터);
-    axios.post("http://localhost:8080/book/form",{ title, author, price, desc });
+    axios.post("http://localhost:8080/book/regist",{ isbn, title, author, price, desc });
     alert("등록되었습니다.");
     
     navigate(ROUTE.LIST);
@@ -59,11 +68,19 @@ function RegistBook() {
       <Title>도서 정보 입력</Title>
       <Content>
         <InputWrapper>
+          <InputName>ISBN</InputName>
+          <StyledInput
+            onChange={handleIsbnChange}
+            type="text"
+            placeholder="Enter isbn"
+          />
+        </InputWrapper>
+        <InputWrapper>
           <InputName>제목</InputName>
           <StyledInput
             onChange={handleTitleChange}
             type="text"
-            placeholder="제목을 입력해주세요"
+            placeholder="Enter title"
           />
         </InputWrapper>
         <InputWrapper>
@@ -71,15 +88,15 @@ function RegistBook() {
           <StyledInput
             onChange={handleAuthorChange}
             type="text"
-            placeholder="저자를 입력해주세요"
+            placeholder="Enter author"
           />
         </InputWrapper>
         <InputWrapper>
           <InputName>가격</InputName>
           <StyledInput
             onChange={handlePriceChange}
-            type="number"
-            placeholder="가격을 입력해주세요"
+            type="text"
+            placeholder="Enter price"
           />
         </InputWrapper>
         <InputWrapper>
@@ -87,15 +104,15 @@ function RegistBook() {
           <StyledInput
             onChange={handleDescChange}
             type="text"
-            placeholder="설명을 소개해주세요"
+            placeholder="Enter describe"
           />
         </InputWrapper>
       </Content>
       <BottomButtonsWrapper>
-        <Button text="등록" clickFunc={registeBook} disabled={buttonDisabled} />
+        <Button text="입력" clickFunc={registBook} disabled={buttonDisabled} />
         <NavigateButton
           disabled={buttonDisabled}
-          text="책 목록보기"
+          text="목록으로"
           clickFunc={() => navigate(ROUTE.LIST)}
         />
       </BottomButtonsWrapper>
@@ -103,4 +120,4 @@ function RegistBook() {
   );
 }
 
-export default RegistBook;
+export default RegistUser;

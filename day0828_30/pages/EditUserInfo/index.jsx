@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { findBookInfoById } from "./utils/findBookById";
-import { deleteBooksToStorage, saveBooksToStorage } from "../../utils/saveBookToStorage";
+import { findUserInfoById } from "./utils/findUserById";
+// import { getBooksFromStorage } from "../../utils/getUsersFromStorage";
+import { deleteBookToStorage, saveBookToStorage } from "../../utils/saveUserToStorage";
 import Button from "../../components/Button";
-import * as S from "./EditBookInfoStyle";
+import * as S from "./EditUserInfoStyle";
 import {
   Content,
   InputName,
@@ -15,29 +16,33 @@ import {
 } from "styles";
 import { ROUTE } from "Route";
 
-function EditBookInfo() {
-  const bookId = Number(useParams().bookId);
+function EditUserInfo() {
+  // const userId = Number(useParams().userId);
+  const bookIsbn = useParams().userId;
 
   // const userInfo = findUserInfoById(userId);
 
   const [bookInfo, setBookInfo ] = useState({});
  
   useEffect(()=>{
-    findBookInfoById(bookId,setBookInfo);
+    findUserInfoById(bookIsbn, setBookInfo);
   },[]);
 
   const navigate = useNavigate();
+
+  const isbnRef = useRef(null);
   const titleRef = useRef(null);
   const authorRef = useRef(null);
   const priceRef = useRef(null);
   const descRef = useRef(null);
 
   const saveBookInfo = () => {
+    // const newIsbn =  isbnRef.current.value;
     const newTitle = titleRef.current.value;
     const newAuthor = authorRef.current.value;
     const newPrice = priceRef.current.value;
     const newDesc = descRef.current.value;
-
+    
     if (
       newTitle !== bookInfo.title ||
       newAuthor !== bookInfo.author ||
@@ -45,9 +50,11 @@ function EditBookInfo() {
       newDesc !== bookInfo.desc
     ) {
     
-      saveBooksToStorage({isbn:bookId, title:newTitle, author:newAuthor, price:newPrice, desc:newDesc}); //DB수정 작업 요청!!
+      saveBookToStorage({isbn:bookIsbn, title:newTitle, author:newAuthor, price:newPrice, desc:newDesc}); //DB수정 작업 요청!!
       // saveUsersToStorage({no,name,age,job}); //DB수정 작업 요청!!
       alert("저장되었습니다.");
+      navigate(ROUTE.LIST);
+      
     } else {
       alert("변경된 사항이 없습니다.");
     }
@@ -55,9 +62,9 @@ function EditBookInfo() {
 
   const deleteBookInfo = () => {
 
-  //saveUserToStorage.js에 새롭게 추가함.
+    //saveUserToStorage.js에 새롭게 추가함.
     // deleteUsersToStorage({no:userId});
-    deleteBooksToStorage(bookId);
+    deleteBookToStorage(bookIsbn);
    
     alert("삭제되었습니다.");
     navigate(ROUTE.LIST);
@@ -65,13 +72,17 @@ function EditBookInfo() {
 
   return (
     <Wrapper>
-      <Title>책 정보 수정</Title>
+      <Title>도서 정보 수정</Title>
       <Content>
         <S.Row>
-          <InputName>제목</InputName>
+          <InputName>ISBN</InputName>
           <InputWrapper>
-            <StyledInput ref={titleRef} defaultValue={bookInfo.title} />
+            <StyledInput ref={isbnRef} defaultValue={bookInfo.isbn} />
           </InputWrapper>
+        </S.Row>
+        <S.Row>
+          <InputName>제목</InputName>
+          <StyledInput ref={titleRef} defaultValue={bookInfo.title} />
         </S.Row>
         <S.Row>
           <InputName>저자</InputName>
@@ -99,4 +110,4 @@ function EditBookInfo() {
   );
 }
 
-export default EditBookInfo;
+export default EditUserInfo;
