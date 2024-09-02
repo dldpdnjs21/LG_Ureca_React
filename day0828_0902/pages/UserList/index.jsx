@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { Content, Title, Wrapper } from "styles";
 import { ROUTE } from "Route";
-import * as S from "./UserListStyle";
 import { getBooksFromStorage } from "../../utils/getUsersFromStorage";
 import styled from "styled-components";
+
 
 const Table = styled.table`
     width: 100%;
@@ -48,18 +48,7 @@ function UserList() {
 
   let render = <Title>등록된 도서가 없습니다.</Title>;
   if (list) {
-    // render = list?.map((book) => (
-    //   <S.Row key={book.isbn}>
-    //     번호: {user.no} 이름: {user.name} 나이: {user.age} 직업: {user.job}
-    //     <S.ButtonWrapper
-          // onClick={() => {
-          //   navigate(ROUTE.EDIT + `${user.no}`);
-          // }}
-    //     >
-    //       수정
-    //     </S.ButtonWrapper>
-    //   </S.Row>
-    // ));
+
     render = 
     <Table>
           <Thead>

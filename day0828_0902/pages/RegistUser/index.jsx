@@ -23,6 +23,9 @@ function RegistUser() {
   const [author, setAuthor] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
+  const [upfile, setUpfile] = useState(null);
+
+
   const navigate = useNavigate();
   
   const handleIsbnChange = (e) => {
@@ -40,6 +43,20 @@ function RegistUser() {
   const handleDescChange = (e) => {
     setDesc(e.target.value);
   };
+
+  //<input type="file">
+  const handleUpfileChange = (e) => {
+    console.log('업로드파일값(e.target.value)=',e.target.value);
+    console.log('업로드파일 자료형(e.target.value)=', typeof( e.target.value));
+    
+    console.log('업로드 파일정보(e.target.files)=', e.target.files,",자료형= ", typeof (e.target.files));
+    console.log('업로드 파일정보(e.target.files[0])=', e.target.files[0]);
+
+    setUpfile(e.target.files[0]);
+  };
+
+
+
   useEffect(() => {
     if (isbn !== "" && title !== "" && author !== "" && price !== ""&& desc !== "") {
       setButtonDisabled(false);
@@ -54,8 +71,20 @@ function RegistUser() {
       return;
     }
 
+    const formData = new FormData(); //폼전송(with파일업로드)
+      formData.append("isbn", isbn);
+      formData.append("title", title);
+      formData.append("author", author);
+      formData.append("price", price);
+      formData.append("desc", desc);
+      formData.append("upfile", upfile);
+
     // axios.post("요청URL",전달데이터);
-    axios.post("http://localhost:8080/book/regist",{ isbn, title, author, price, desc });
+    // axios.post("http://localhost:8080/book/regist",{ isbn, title, author, price, desc, upfile });
+    axios.post("http://localhost:8080/book/regist",
+                formData,
+               {headers:{'ContentType':'multipart/form-data'}});
+    
     alert("등록되었습니다.");
     
     navigate(ROUTE.LIST);
@@ -105,6 +134,13 @@ function RegistUser() {
             onChange={handleDescChange}
             type="text"
             placeholder="Enter describe"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <InputName>파일</InputName>
+          <StyledInput
+            onChange={handleUpfileChange}
+            type="file"
           />
         </InputWrapper>
       </Content>

@@ -1,30 +1,33 @@
 import styled from "styled-components";
 import "./App.css";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { ROUTE } from "Route";
 import ButtonMenu from "pages/ButtonMenu";
 import LoginForm from "pages/LoginForm";
 import EditUserInfo from "pages/EditUserInfo";
 import RegistUser from "pages/RegistUser";
 import UserList from "pages/UserList";
 import Header from "pages/Header";
+import { useState } from "react";
 function App() {
-  // const navigate = useNavigate();
+  const [login, setLogin] = useState(false);
+  const [name, setName] = useState("");
+
   return (
-    // <Wrapper>
-    //   <Button onClick={() => navigate(ROUTE.LIST)}>목록보기</Button>
-    //   <Button onClick={() => navigate(ROUTE.REGIST)}>등록하기</Button>
-    // </Wrapper>
     <BrowserRouter>
-      <Header />
+      <Header login={login} setLogin={setLogin} name={name} />
       <Routes>
         <Route path="/" element={<ButtonMenu />} />
         <Route path="/list" element={<UserList />} />
         <Route path="/regist" element={<RegistUser />} />
         <Route path="/edit/:userId" element={<EditUserInfo />} />
-        <Route path="/loginform" element={<LoginForm />} />
+        <Route
+          path="/loginform"
+          element={
+            <LoginForm login={login} setLogin={setLogin} setName={setName} />
+          }
+        />
       </Routes>
-  </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

@@ -35,21 +35,22 @@ const Login= styled.div`
     text-align  : right;
 `;
 
-const Header = () => {
-  const navigate =  useNavigate();
+const Header = ({ login,setLogin,name}) => {
+  const navigate = useNavigate();
+  
   return (
     <HeaderContainer>
-      <Logo>MyApp</Logo>
+      <Logo>도서 프로젝트</Logo>
       <Navigation>
-        <NavLink href="#home">Home</NavLink>
+        <NavLink href="#home" onClick={()=>navigate(ROUTE.ROOT)}>Home</NavLink>
         <NavLink href="#about">About</NavLink>
         <NavLink href="#information">Information</NavLink>
       </Navigation>
       <Login>
-        
-        <button onClick={()=>navigate(ROUTE.LOGINFORM)}>로그인</button>
-        홍길동님 반갑습니다. <button>로그아웃</button>
-      
+        {(!login)? 
+        <button onClick={()=>navigate(ROUTE.LOGINFORM)}>로그인</button> :
+          <span>{name}님 반갑습니다. <button onClick={() => { setLogin(false); }}>로그아웃</button></span>
+        }
       </Login>  
     </HeaderContainer>
   );
