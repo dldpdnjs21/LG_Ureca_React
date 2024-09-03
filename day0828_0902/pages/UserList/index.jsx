@@ -20,7 +20,7 @@ color: white;
         border: 1px solid #ccc;
     }
 `;
-
+zz
 const Tbody = styled.tbody`
     td {
         padding: 8px;
